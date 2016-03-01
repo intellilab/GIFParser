@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GIF Parse</title>
+        <meta charset="utf-8" />
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                font-size: 0;
+                text-align: center;
+            }
+            body:before {
+                width: 0;
+                height: 1px;
+                content: "";
+                display: block;
+            }
+            .drop-area {
+                font-size: 14px;
+                width: 200px;
+                height: 200px;
+                border: 1px dashed gray;
+                margin: 100px auto 0;
+            }
+            .drop-area:after {
+                height: 100%;
+                width: 0;
+                content: "";
+                display: inline-block;
+                vertical-align: middle;
+
+            }
+            .tip {
+                width: 100px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="drop-area">
+            <div class="tip">拖个GIF进来试试（比如QQ表情）</div>
+        </div>
+    </body>
+    <script src="index.js"></script>
+</html>
