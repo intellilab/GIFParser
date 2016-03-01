@@ -30,12 +30,7 @@ var Gif = function(buffer) {
         info.bgColor = arr[5];
         info.radio = arr[6];
         if (info.m) {
-            i = 0;
-            info.colorTab = [];
-            while (i < 2 << info.pixel) {
-                info.colorTab.push(read(3));
-                i++;
-            }
+            info.colorTab = read((2 << info.pixel) * 3);
         }
         decode();
     }
@@ -63,12 +58,7 @@ var Gif = function(buffer) {
                 frame.img.r = 3 & arr[8] >> 3;
                 frame.img.pixel = arr[8] & 0x07;
                 if (frame.img.m) {
-                    i = 0;
-                    frame.img.colorTab = [];
-                    while (i < 2 << frame.img.pixel) {
-                        frame.img.colorTab.push(read(3));
-                        i++;
-                    }
+                    frame.img.colorTab = read((2 << frame.img.pixel) * 3);
                 }
                 frame.img.codeSize = read(1)[0];
                 srcBuf = [];
@@ -168,9 +158,9 @@ var Gif = function(buffer) {
         imgData = ctx.getImageData(e.img.x, e.img.y, e.img.w, e.img.h);
 
         lzw(e.img.srcBuf, e.img.codeSize).decode().forEach(function(j, k) {
-            imgData.data[k * 4] = tab[j][0];
-            imgData.data[k*4+1] = tab[j][1];
-            imgData.data[k*4+2] = tab[j][2];
+            imgData.data[k * 4] = tab[j * 3];
+            imgData.data[k*4+1] = tab[j*3+1];
+            imgData.data[k*4+2] = tab[j*3+2];
             imgData.data[k*4+3] = 255;
             e.ctrl.t ? (j == e.ctrl.tranIndex ? imgData.data[k*4+3] = 0 : 0) : 0;
         });
